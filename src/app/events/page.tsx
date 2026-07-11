@@ -12,11 +12,11 @@ import { CalendarX2 } from "lucide-react";
 
 const CATEGORIES = [
   { id: "all", label: "All" },
-  { id: "Music", label: "Music" },
-  { id: "Sports", label: "Sports" },
-  { id: "Arts & Theatre", label: "Arts & Theatre" },
-  { id: "Film", label: "Film" },
-  { id: "Family", label: "Family" },
+  { id: "concert", label: "Concerts" },
+  { id: "sports", label: "Sports" },
+  { id: "theater", label: "Theater" },
+  { id: "comedy", label: "Comedy" },
+  { id: "family", label: "Family" },
 ];
 
 export default function EventsPage() {

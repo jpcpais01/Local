@@ -47,14 +47,16 @@ theme, and an installable PWA with offline app-shell caching.
 | [USGS](https://earthquake.usgs.gov) | Earthquakes | No |
 | [National Weather Service](https://www.weather.gov/documentation/services-web-api) | Severe weather alerts (US only) | No |
 | [BigDataCloud](https://www.bigdatacloud.com/free-api/free-reverse-geocode-to-city-api) | Reverse geocoding | No |
-| [Ticketmaster Discovery](https://developer.ticketmaster.com) | Local events | **Yes — free tier** |
+| [SeatGeek Platform API](https://seatgeek.com/build) | Local events | **Yes — free, instant** |
 
 Sunrise/sunset/golden hour/moon phase are computed locally with standard
 astronomical formulas — no network call at all.
 
-Everything except Ticketmaster works out of the box with zero
-configuration. Events require a free Ticketmaster key (see below); without
-one, the Events tab shows setup instructions instead of failing.
+Everything except events works out of the box with zero configuration.
+Events use the SeatGeek Platform API, chosen specifically because its free
+client ID is self-serve and issued instantly — no app-review process like
+some ticketing APIs require. Without one, the Events tab shows setup
+instructions instead of failing.
 
 ## Getting started
 
@@ -68,9 +70,9 @@ your location (or let you search for one) on first load.
 
 ### Optional: enable Events
 
-1. Get a free key at [developer.ticketmaster.com](https://developer.ticketmaster.com/products-and-docs/apis/getting-started/)
-   (no credit card required, ~5,000 requests/day).
-2. Copy `.env.example` to `.env.local` and set `TICKETMASTER_API_KEY`.
+1. Create a free account and grab a client ID at [seatgeek.com/account/develop](https://seatgeek.com/account/develop)
+   — no app review, no credit card, issued instantly.
+2. Copy `.env.example` to `.env.local` and set `SEATGEEK_CLIENT_ID`.
 3. Restart the dev server.
 
 ## Deploying to Vercel
@@ -78,7 +80,7 @@ your location (or let you search for one) on first load.
 1. Push this repo to GitHub (or GitLab/Bitbucket).
 2. Import it in [Vercel](https://vercel.com/new) — it auto-detects Next.js,
    no config needed.
-3. Optionally add the `TICKETMASTER_API_KEY` environment variable in the
+3. Optionally add the `SEATGEEK_CLIENT_ID` environment variable in the
    Vercel project settings to enable Events.
 4. Deploy.
 
@@ -89,8 +91,8 @@ No other setup, database, or paid service is required.
 ```
 src/
   app/                 # Routes (App Router) — one folder per tab, plus /api
-  app/api/             # Server routes: news (RSS proxy), events (Ticketmaster
-                        # proxy, keeps the key server-side), poi (Overpass proxy)
+  app/api/             # Server routes: news (RSS proxy), events (SeatGeek
+                        # proxy, keeps the client ID server-side), poi (Overpass proxy)
   components/          # UI, grouped by feature area
   context/AppContext.tsx  # Location, settings, saved events (localStorage-backed)
   hooks/               # Data-fetching hooks per feature
@@ -103,7 +105,7 @@ src/
 - Weather, air quality, and location APIs are fetched client-side directly
   from their CORS-enabled endpoints — no server hop.
 - News, events, and POI data go through lightweight API routes (to hide the
-  Ticketmaster key and to parse/proxy XML), cached at the edge via
+  SeatGeek client ID and to parse/proxy XML), cached at the edge via
   `Cache-Control`/`revalidate`.
 - Sun/moon calculations run entirely on-device.
 - The service worker caches the app shell and static assets for fast repeat

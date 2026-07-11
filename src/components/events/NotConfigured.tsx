@@ -7,25 +7,26 @@ export function EventsNotConfigured() {
       <div className="h-12 w-12 rounded-full bg-cat-events/15 flex items-center justify-center mx-auto">
         <KeyRound size={22} className="text-cat-events" />
       </div>
-      <h3 className="font-semibold">Add a free Ticketmaster key to see events</h3>
+      <h3 className="font-semibold">Add a free SeatGeek client ID to see events</h3>
       <p className="text-sm text-fg-muted max-w-sm mx-auto">
-        Loci uses the Ticketmaster Discovery API for local concerts, sports, and shows — it&apos;s
-        free (no credit card) for up to 5,000 requests/day.
+        Loci uses the SeatGeek Platform API for local concerts, sports, and shows — it&apos;s free,
+        self-serve, and issued instantly (no app review, no credit card, unlike some ticketing
+        APIs).
       </p>
       <ol className="text-sm text-left max-w-sm mx-auto text-fg-muted list-decimal list-inside space-y-1">
         <li>
-          Get a free key at{" "}
+          Create a free account and grab your client ID at{" "}
           <a
-            href="https://developer.ticketmaster.com/products-and-docs/apis/getting-started/"
+            href="https://seatgeek.com/account/develop"
             target="_blank"
             rel="noopener noreferrer"
             className="text-brand underline underline-offset-2"
           >
-            developer.ticketmaster.com
+            seatgeek.com/account/develop
           </a>
         </li>
         <li>
-          Add it as <code className="text-xs bg-surface-2 px-1.5 py-0.5 rounded">TICKETMASTER_API_KEY</code> in
+          Add it as <code className="text-xs bg-surface-2 px-1.5 py-0.5 rounded">SEATGEEK_CLIENT_ID</code> in
           your <code className="text-xs bg-surface-2 px-1.5 py-0.5 rounded">.env.local</code> (or Vercel
           project env vars)
         </li>
