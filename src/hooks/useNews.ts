@@ -26,6 +26,7 @@ export function useNews(category: string = "top") {
       const params = new URLSearchParams({
         city: activeLocation!.city,
         region: activeLocation!.region ?? "",
+        countryCode: activeLocation!.countryCode ?? "",
         category,
       });
       const res = await fetch(`/api/news?${params}`);
