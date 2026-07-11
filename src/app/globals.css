@@ -1,26 +1,147 @@
 @import "tailwindcss";
 
+/* Manual class-based dark mode (toggled by AppContext), not just OS preference */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f5f6f8;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f0f1f4;
+  --border: #e4e6eb;
+  --fg: #14161a;
+  --fg-muted: #5b6270;
+  --fg-subtle: #8a90a0;
+
+  --accent: #ff6b4a;
+  --accent-fg: #ffffff;
+  --brand: #2563eb;
+
+  --cat-weather: #2563eb;
+  --cat-events: #a855f7;
+  --cat-news: #dc2626;
+  --cat-explore: #16a34a;
+  --cat-safety: #e11d48;
+  --cat-sky: #6366f1;
+  --cat-almanac: #d97706;
+
+  --aqi-good: #16a34a;
+  --aqi-moderate: #ca8a04;
+  --aqi-sensitive: #ea580c;
+  --aqi-unhealthy: #dc2626;
+  --aqi-very-unhealthy: #9333ea;
+  --aqi-hazardous: #7f1d1d;
+  --aqi-unknown: #8a90a0;
+
+  --uv-low: #16a34a;
+  --uv-moderate: #ca8a04;
+  --uv-high: #ea580c;
+  --uv-very-high: #dc2626;
+  --uv-extreme: #9333ea;
+
+  --shadow-color: 220 20% 40%;
+}
+
+.dark {
+  --bg: #0b0d12;
+  --bg-elevated: #14171e;
+  --surface: #14171e;
+  --surface-2: #1b1f28;
+  --border: #262b36;
+  --fg: #f1f2f5;
+  --fg-muted: #9aa0b0;
+  --fg-subtle: #676e7d;
+
+  --accent: #ff7a5c;
+  --accent-fg: #10120f;
+  --brand: #5b8def;
+
+  --shadow-color: 220 60% 2%;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-brand: var(--brand);
+
+  --color-cat-weather: var(--cat-weather);
+  --color-cat-events: var(--cat-events);
+  --color-cat-news: var(--cat-news);
+  --color-cat-explore: var(--cat-explore);
+  --color-cat-safety: var(--cat-safety);
+  --color-cat-sky: var(--cat-sky);
+  --color-cat-almanac: var(--cat-almanac);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --animate-fade-in: fade-in 0.35s ease-out;
+  --animate-rise: rise 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+* {
+  border-color: var(--border);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.card-shadow {
+  box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.06), 0 8px 24px -8px hsl(var(--shadow-color) / 0.12);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
